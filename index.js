@@ -2,7 +2,7 @@ const server = require('./socket');
 const PORT = 4000;
 
 server.listen(PORT, () => { 
-  console.log(`server listening on ${4000}`);
+  console.log(`🚀 server listening on ${4000}`);
 });
 module.exports = server;
 
