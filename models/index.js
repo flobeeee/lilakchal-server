@@ -35,23 +35,30 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 const { User, Item, Buyer_item, Seller_item, Chat } = sequelize.models;
-// User.belongsToMany(Item, { through: 'Buyer_item', foreignKey: 'UserId', as: 'User1' });
+
+Chat.belongsTo(User);
+User.hasMany(Chat);
+
+Chat.belongsTo(Item);
+Item.hasMany(Chat);
+
 User.belongsToMany(Item, { through: 'Seller_item', foreignKey: 'UserId', as: 'Item' });
-// User.belongsToMany(Item, { through: 'Chat', foreignKey: 'UserId', as: 'User3' });
+User.belongsToMany(Item, { through: 'Buyer_item', foreignKey: 'UserId', as: 'ItemB' });
+// User.belongsToMany(Item, { through: 'Chat', foreignKey: 'UserId', as: 'ItemC' });
 
-// Item.belongsToMany(User, { through: 'Buyer_item', foreignKey: 'ItemId', as: 'Item1' });
 Item.belongsToMany(User, { through: 'Seller_item', foreignKey: 'ItemId', as: 'User' });
-// Item.belongsToMany(User, { through: 'Chat', foreignKey: 'ItemId', as: 'Item3' });
+Item.belongsToMany(User, { through: 'Buyer_item', foreignKey: 'ItemId', as: 'UserB' });
+// Item.belongsToMany(User, { through: 'Chat', foreignKey: 'ItemId', as: 'UserC' });
 
-// Buyer_item.belongsTo(User, {
-//   foreignKey: 'UserId',
-//   as: 'User1'
-// });
+Buyer_item.belongsTo(User, {
+  foreignKey: 'UserId',
+  as: 'UserB'
+});
 
-// Buyer_item.belongsTo(Item, {
-//   foreignKey: 'ItemId',
-//   as: 'Item1'
-// });
+Buyer_item.belongsTo(Item, {
+  foreignKey: 'ItemId',
+  as: 'ItemB'
+});
 
 Seller_item.belongsTo(User, {
   foreignKey: 'UserId',
@@ -65,12 +72,12 @@ Seller_item.belongsTo(Item, {
 
 // Chat.belongsTo(User, {
 //   foreignKey: 'UserId',
-//   as: 'User3'
+//   as: 'UserC'
 // });
 
 // Chat.belongsTo(Item, {
 //   foreignKey: 'ItemId',
-//   as: 'Item3'
+//   as: 'ItemC'
 // });
 
 module.exports = db;
