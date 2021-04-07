@@ -12,7 +12,7 @@ app.use(cors({
 }));
 
 app.get('/', (req, res) => {
-  res.send('hello https');
+  res.send('hello https..');
 });
 
 module.exports = app;
