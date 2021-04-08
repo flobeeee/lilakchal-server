@@ -31,12 +31,12 @@ module.exports = {
         },
       })
         .then((data) => {
-          const kakaoid = data.email;
+          const kakaoid = data.id;
           const name = data.kakao_account.profile.nickname;
           UserModel
             .findOrCreate({
               where: {
-                kakaoid: kakaoid,
+                kakaoid: `${kakaoid}@kakao.com`,
               },
               defaults: {
                 name: name,
