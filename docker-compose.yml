@@ -1,0 +1,10 @@
+version: "3"
+services:
+  node-server:
+    image: imhyelim1091/ttmk
+    build: .
+    ports:
+      - "4000:4000"
+    volumes:
+    - /usr/src/app/node_modules
+    - ./:/usr/src/app
