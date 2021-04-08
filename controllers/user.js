@@ -47,6 +47,13 @@ module.exports = {
         .then((user) => {
           const { kakaoId, name, id } = user[0].dataValues;
           res.set('Set-Cookie', [`accessToken=${accessToken}`]);
+          // res.cookie('id', userInfo.id, {
+          //   domain: 'localhost',
+          //   path: '/',
+          //   sameSite: 'none',
+          //   httpOnly: true,
+          //   secure: true,
+          // });
           res.status(200).json({ kakaoId, name, id });
         });
     }).catch(e => {
@@ -105,6 +112,7 @@ module.exports = {
   // 경매에 내놓은 물품 조회
   'getSellerItems': async (req, res) => {
     const { userId } = req.body;
+    console.log(req.body);
     await UserModel.findAll({
       where: {
         id: userId,
