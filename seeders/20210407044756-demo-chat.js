@@ -8,12 +8,16 @@ module.exports = {
       {
         userId: users[0][0].id,
         itemId: items[0][0].id,
-        message: '장소는 어디가 편하신가요 ?'
+        message: '장소는 어디가 편하신가요 ?',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         userId: users[0][1].id,
         itemId: items[0][0].id,
-        message: '우체국 앞에서 볼까요 ?'
+        message: '우체국 앞에서 볼까요 ?',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     ]);
   },

@@ -12,6 +12,8 @@ module.exports = {
         winnerId: 2,
         isClosed: true,
         city: '서울시 마포구',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         title: '치킨 기프티콘',
@@ -22,6 +24,8 @@ module.exports = {
         winnerId: null,
         isClosed: false,
         city: '서울시 마포구',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         title: '햄버거 기프티콘',
@@ -32,6 +36,8 @@ module.exports = {
         winnerId: null,
         isClosed: false,
         city: '서울시 마포구',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         title: '스타벅스 기프티콘',
@@ -42,6 +48,8 @@ module.exports = {
         winnerId: null,
         isClosed: false,
         city: '서울시 마포구',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         title: '투썸 기프티콘',
@@ -52,6 +60,8 @@ module.exports = {
         winnerId: null,
         isClosed: false,
         city: '서울시 마포구',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         title: '애플 iMac',
@@ -62,6 +72,8 @@ module.exports = {
         winnerId: null,
         isClosed: false,
         city: '서울시 성동구',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         title: '애플 iPad Air 그린',
@@ -72,6 +84,8 @@ module.exports = {
         winnerId: null,
         isClosed: false,
         city: '서울시 성동구',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         title: '애플 매직키보드',
@@ -82,6 +96,8 @@ module.exports = {
         winnerId: null,
         isClosed: false,
         city: '서울시 성동구',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         title: '애플 맥북 에어 M1 미개봉 (13인치 스페이스그레이)',
@@ -92,6 +108,8 @@ module.exports = {
         winnerId: null,
         isClosed: false,
         city: '서울시 성동구',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         title: '애플 매직마우스 1세대 팝니다',
@@ -102,6 +120,8 @@ module.exports = {
         winnerId: null,
         isClosed: false,
         city: '서울시 성동구',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     ]);
   },
