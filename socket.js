@@ -35,46 +35,46 @@ const messges = [
 //socket.emit(): 메시지를 보낸 사람에게만 보낸다.
 //socket.broadcast.emit(): 메시지를 보낸 사람을 제외한 나머지에게 보낸다.
 
-io.on('connection', function(socket) {
+//socket.emit('bid', { userId: 0, itemId: 0, price: 888 });
 
-  const auction = io.of('/auction');
-  auction.on('connection', (socket) => {
-    socket.on('bid', ({userId, itemId, price}) => {
-      console.log(`received: ${userId}, ${itemId}, ${price} from client ${socket.id}`);
-      if(bucket[itemId] && bucket[itemId] > price) {
-        socket.emit('refuse', 'fail to bid');
-      } else {
-        //1. db에 접속하여 낙찰자, 최고가를 변경한다.
-        //2. 모든 클라이언트에게 물품과 새로운 최고가를 전달한다.
-        bucket[itemId] = price; //최고가 데이터 저장
-        io.emit('bid', { userId, itemId, price });
-      }
-    });
+const auction = io.of('/auction');
+auction.on('connection', (socket) => {
+  socket.on('bid', ({userId, itemId, price}) => {
+    console.log(`received: ${userId}, ${itemId}, ${price} from client ${socket.id}`);
+    if(bucket[itemId] && bucket[itemId] > price) {
+      socket.emit('refuse', 'fail to bid');
+    } else {
+      //1. db에 접속하여 낙찰자, 최고가를 변경한다.
+      //2. 모든 클라이언트에게 물품과 새로운 최고가를 전달한다.
+      bucket[itemId] = price; //최고가 데이터 저장
+      auction.emit('bid', { userId, itemId, price });
+    }
+  });
+});
+
+const chat = io.of('/chat');
+chat.on('connection', (socket) => {
+  socket.on('join', ({userId, itemId: room}) => {//itemId가 roomid와 동일함
+    console.log(`received: ${userId}, ${room} from client ${socket.id}`);
+
+    //1. database에서 room의 메시지들을 가져온다.
+    //2. 해당 클라이언트(socket)에게 지금까지의 메시지를 보낸다.
+    socket.join(room);
+    socket.to(room).emit('messages', messges); //DB있다면 지금까지의 메시지 객체로 전달하는 것으로 변경
   });
 
-  const chat = io.of('/chat');
-  chat.on('connection', (socket) => {
-    socket.on('join', ({userId, itemId: room}) => {//itemId가 roomid와 동일함
-      console.log(`received: ${userId}, ${room} from client ${socket.id}`);
+  socket.on('message', ({userId, itemId: room, msg}) => {
+    console.log(`received: ${userId}, ${room} from client ${socket.id}`);
 
-      //1. database에서 room의 메시지들을 가져온다.
-      //2. 해당 클라이언트(socket)에게 지금까지의 메시지를 보낸다.
-      socket.join(room);
-      socket.to(room).emit('messages', messges); //DB있다면 지금까지의 메시지 객체로 전달하는 것으로 변경
-    });
-
-    socket.on('message', ({userId, itemId: room, msg}) => {
-      console.log(`received: ${userId}, ${room} from client ${socket.id}`);
-
-      //1. database에 저장하기
-      //2. join되어있는 모든 사람(본인포함)에게 메시지를 전송: 나한테선 보낸 메시지인데 상대가 볼때는 메시지가 안 온 것이 보낸 사람의 렌더속도보다 더 심한 문제라 판단됨
-      //join 이벤트에서 이미 join되어 있으므로 message에서 join을 할 필요가 없는 것인지 추후 확인
-      chat.to(room).emit('message', msg); 
-    });
+    //1. database에 저장하기
+    //2. join되어있는 모든 사람(본인포함)에게 메시지를 전송: 나한테선 보낸 메시지인데 상대가 볼때는 메시지가 안 온 것이 보낸 사람의 렌더속도보다 더 심한 문제라 판단됨
+    //join 이벤트에서 이미 join되어 있으므로 message에서 join을 할 필요가 없는 것인지 추후 확인
+    chat.to(room).emit('message', msg); 
   });
+});
 
   
-  socket.on('disconnect', () => { console.log('disconnect!'); });
-});
+io.on('disconnect', () => { console.log('disconnect!'); });
+
 
 module.exports = server;
