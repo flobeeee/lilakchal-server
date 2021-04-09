@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER,
     itemId: DataTypes.INTEGER
   }, {
+    timestamps: false,
     sequelize,
     modelName: 'Seller_item',
   });
