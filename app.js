@@ -26,7 +26,7 @@ app.use(express.static('uploads'));
 
 app.use('/user', userRouter);
 app.use('/auction', auctionRouter);
-app.use('/search', searchRouter);
+app.use('/:search', searchRouter);
 
 app.get('/', (req, res) => {
   res.send('hello https..');
