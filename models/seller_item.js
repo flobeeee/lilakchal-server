@@ -16,8 +16,9 @@ module.exports = (sequelize, DataTypes) => {
   Seller_item.init({
     
   }, {
-    timestamps: false,
     sequelize,
+    createdAt: false,
+    updatedAt: false,
     modelName: 'Seller_item',
   });
   return Seller_item;
