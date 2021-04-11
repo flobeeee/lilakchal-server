@@ -6,7 +6,6 @@ module.exports = {
   'keyword': async (req, res) => {
     // console.log(req.query); // {keyword: '맥북, city: '서울시 마포구', offset: 1}
     const { keyword, city, offset } = req.query;
-    // const { offset } = req.query;
 
     // 검색어로 아이템 이름 검색
     if (keyword) {
@@ -34,7 +33,7 @@ module.exports = {
             res.status(200).json({ limitItems });
           } else {
             const items = [];
-            res.status(200).json({ items });
+            res.status(204).json({ items });
           }
         }).catch(() => {
           res.status(500).json({ 'message': 'Fail to load data from database' });
@@ -52,7 +51,7 @@ module.exports = {
             res.status(200).json({ items });
           } else {
             const items = [];
-            res.status(200).json({ items });
+            res.status(204).json({ items });
           }
         }).catch(() => {
           res.status(500).json({ 'message': 'Fail to load data from database' });
