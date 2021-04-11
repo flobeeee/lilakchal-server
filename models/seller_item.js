@@ -14,8 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Seller_item.init({
-    userId: DataTypes.INTEGER,
-    itemId: DataTypes.INTEGER
+    
   }, {
     timestamps: false,
     sequelize,
