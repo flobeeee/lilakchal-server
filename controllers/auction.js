@@ -2,10 +2,10 @@ const { Item: ItemModel, Seller_item: SellerModel } = require('../models');
 
 module.exports = {
   'register': async (req, res) => {
-    console.log('------------------------------');
-    console.log(req.body);
-    console.log(req.file);
-    console.log('------------------------------');
+    // console.log('------------------------------');
+    // console.log(req.body);
+    // console.log(req.file);
+    // console.log('------------------------------');
     const { userId, title, price, endTime, description, photo, city } = req.body;
     ItemModel.create({
       title: title,
@@ -14,6 +14,7 @@ module.exports = {
       description: description,
       endTime: endTime,
       winnerId: null,
+      sellerId: userId,
       isClosed: false,
       city: city,
     })
