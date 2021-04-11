@@ -11,6 +11,7 @@ const server = https
     , app
   );
 const io = SocketIO(server);
+const { Item: ItemModel, Buyer_item: BuyerItemModel } = require('./models');
 
 //찰나의 차이로 이전 가격을 보고 입찰을 누른 사람을 걸러야함.
 //아이템들의 마지막 가격을 해시테이블로 저장하여 중복/더 낮은 가격을 요청하였을 경우를 빠르게 거른다.(캐시데이터 느낌)
@@ -37,17 +38,43 @@ const messges = [
 
 //socket.emit('bid', { userId: 0, itemId: 0, price: 888 });
 
+//가격을 Update한다.
+const updateItemPrice = async (userId, itemId, price) => {
+  await ItemModel.update({winnerId: userId, price: price}, {
+    where: {
+      id: itemId
+    }
+  });
+};
+
+const insertJoinBidData = async (userId, itemId) => {
+  return await BuyerItemModel.findOrCreate({ 
+    where: {userId, itemId},
+    defaults: { 
+      UserId: userId,
+      ItemId: itemId
+    }
+  });
+};
+
 const auction = io.of('/auction');
 auction.on('connection', (socket) => {
   socket.on('bid', ({userId, itemId, price}) => {
-    console.log(`received: ${userId}, ${itemId}, ${price} from client ${socket.id}`);
-    if(bucket[itemId] && bucket[itemId] > price) {
+    //console.log(`received: ${userId}, ${itemId}, ${price} from client ${socket.id}`);
+    //console.log(bucket, itemId);
+    if(bucket[itemId] && bucket[itemId] >= price) {
       socket.emit('refuse', 'fail to bid');
     } else {
       //1. db에 접속하여 낙찰자, 최고가를 변경한다.
       //2. 모든 클라이언트에게 물품과 새로운 최고가를 전달한다.
-      bucket[itemId] = price; //최고가 데이터 저장
-      auction.emit('bid', { userId, itemId, price });
+      updateItemPrice(userId, itemId, price)
+        .then(() => {
+          insertJoinBidData(userId, itemId);
+        })
+        .then(() => {
+          bucket[itemId] = price; //최고가 데이터 저장
+          auction.emit('bid', { userId, itemId, price });
+        });
     }
   });
 });
@@ -74,7 +101,7 @@ chat.on('connection', (socket) => {
 });
 
   
-io.on('disconnect', () => { console.log('disconnect!'); });
+io.of('/').on('disconnect', () => { console.log('disconnect!'); });
 
 
 module.exports = server;

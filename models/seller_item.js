@@ -14,11 +14,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Seller_item.init({
-    userId: DataTypes.INTEGER,
-    itemId: DataTypes.INTEGER
+    
   }, {
-    timestamps: false,
     sequelize,
+    createdAt: false,
+    updatedAt: false,
     modelName: 'Seller_item',
   });
   return Seller_item;
