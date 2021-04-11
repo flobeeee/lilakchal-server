@@ -5,7 +5,7 @@ const { Item: ItemModel } = require('../models');
 module.exports = {
   'keyword': async (req, res) => {
     // console.log(req.query); // {keyword: '맥북, city: '서울시 마포구', offset: 1}
-    const { keyword, city } = req.query;
+    const { keyword, city, offset } = req.query;
     // const { offset } = req.query;
 
     // 검색어로 아이템 이름 검색
@@ -30,7 +30,8 @@ module.exports = {
               item.dataValues.city = city;
               return item.dataValues;
             });
-            res.status(200).json({ items });
+            const limitItems = items.slice(offset * 5 - 5, offset * 5);
+            res.status(200).json({ limitItems });
           } else {
             const items = [];
             res.status(200).json({ items });

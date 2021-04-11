@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     endTime: DataTypes.DATE,
     winnerId: DataTypes.INTEGER,
+    sellerId: DataTypes.INTEGER,
     isClosed: DataTypes.BOOLEAN,
     city: DataTypes.STRING
   }, {

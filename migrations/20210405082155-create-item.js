@@ -26,6 +26,9 @@ module.exports = {
       winnerId: {
         type: Sequelize.INTEGER
       },
+      sellerId: {
+        type: Sequelize.INTEGER
+      },
       isClosed: {
         type: Sequelize.BOOLEAN
       },
