@@ -44,10 +44,12 @@ module.exports = {
       ItemModel.findAll()
         .then((result) => {
           if (result.length) {
-            const items = result.map((item) => {
+            let items = result.map((item) => {
               item.dataValues.city = city;
               return item.dataValues;
+
             });
+            items = items.slice(offset * 5 - 5, offset * 5);
             res.status(200).json({ items });
           } else {
             const items = [];
