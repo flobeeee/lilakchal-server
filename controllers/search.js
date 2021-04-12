@@ -25,12 +25,12 @@ module.exports = {
       })
         .then((result) => {
           if (result.length) {
-            const items = result.map((item) => {
+            let items = result.map((item) => {
               item.dataValues.city = city;
               return item.dataValues;
             });
-            const limitItems = items.slice(offset * 5 - 5, offset * 5);
-            res.status(200).json({ limitItems });
+            items = items.slice(offset * 5 - 5, offset * 5);
+            res.status(200).json({ items });
           } else {
             const items = [];
             res.status(204).json({ items });
