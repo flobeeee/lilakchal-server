@@ -71,7 +71,7 @@ module.exports = {
       {
         title: '애플 iMac',
         price: 2500000,
-        photo: 'banana.png',
+        photo: 'imac.png',
         description: '공홈에서 312만원하는 녀석입니다. 이미 쓰고있는 게 있어서 팔아요 새상품입니다 ^^ ',
         endTime: '2021-04-10 12:11:09',
         winnerId: 3,
