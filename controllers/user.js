@@ -1,73 +1,52 @@
 require('dotenv').config();
 const axios = require('axios');
-const qs = require('qs');
+// const qs = require('qs');
 const { User: UserModel, Item: ItemModel } = require('../models');
-const clientID = process.env.KAKAO_CLIENT_ID;
-const clientSecret = process.env.KAKAO_CLIENT_SECRET;
-const redirectURL = process.env.KAKAO_REDIRECT_URL;
+// const clientID = process.env.KAKAO_CLIENT_ID;
+// const clientSecret = process.env.KAKAO_CLIENT_SECRET;
+// const redirectURL = process.env.KAKAO_REDIRECT_URL;
 
 module.exports = {
   // 카카오 오어스 로그인, 강제회원가입
   'oauth': async (req, res) => {
-    const { authorizationCode } = req.body;
-    // console.log('1. 클라이언트에서 코드 들어옴', authorizationCode);
-    axios({
-      method: 'post',
-      url: 'https://kauth.kakao.com/oauth/token',
+    const accessToken = req.body.access_token;
+    console.log('2. 토큰받음', req.body.access_token);
+    axios.get('https://kapi.kakao.com/v2/user/me', {
       headers: {
-        'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+        'Authorization': `Bearer ${accessToken}`,
+        'content-type': 'application/x-www-form-urlencoded',
       },
-      data: qs.stringify({
-        grant_type: 'authorization_code',
-        client_id: clientID,
-        redirect_uri: redirectURL,
-        code: authorizationCode,
-        client_secret: clientSecret,
-      })
-    }).then((response) => {
-      const accessToken = response.data.access_token;
-      // console.log('2. 토큰받음', response.data);
-      axios.get('https://kapi.kakao.com/v2/user/me', {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'content-type': 'application/x-www-form-urlencoded',
-        },
-      })
-        .then((data) => {
-          // console.log('3. 유저정보받음', data.data);
-          const kakaoid = data.data.id;
-          const name = data.data.properties.nickname;
-          UserModel
-            .findOrCreate({
-              where: {
-                kakaoid: `${kakaoid}@kakao.com`,
-              },
-              defaults: {
-                name: name,
-              },
-            }).then((user) => {
-              // console.log('4. 회원가입', user);
-              const { kakaoId, name, id } = user[0].dataValues;
-              res.set('Set-Cookie', [`accessToken=${accessToken}`]);
-              // res.cookie('id', userInfo.id, {
-              //   domain: 'localhost',
-              //   path: '/',
-              //   sameSite: 'none',
-              //   httpOnly: true,
-              //   secure: true,
-              // });
-              res.status(200).json({ kakaoId, name, id });
-            });
-        }).catch(e => {
-          console.log('에러', e);
-          res.status(500).json({ 'message': 'Fail to login' });
-        });
-    }).catch(e => {
-      console.log('에러', e);
-      res.status(500).json({ 'message': 'Fail to login' });
-    });
+    })
+      .then((data) => {
+        // console.log('3. 유저정보받음', data.data);
+        const kakaoid = data.data.id;
+        const name = data.data.properties.nickname;
+        UserModel
+          .findOrCreate({
+            where: {
+              kakaoid: `${kakaoid}@kakao.com`,
+            },
+            defaults: {
+              name: name,
+            },
+          }).then((user) => {
+            // console.log('4. 회원가입', user);
+            const { kakaoId, name, id } = user[0].dataValues;
+            res.set('Set-Cookie', [`accessToken=${accessToken}`]);
+            // res.cookie('id', userInfo.id, {
+            //   domain: 'localhost',
+            //   path: '/',
+            //   sameSite: 'none',
+            //   httpOnly: true,
+            //   secure: true,
+            // });
+            res.status(200).json({ kakaoId, name, id });
+          });
+      }).catch(e => {
+        console.log('에러', e);
+        res.status(500).json({ 'message': 'Fail to login' });
+      });
   },
-
   // 닉네임 변경
   'name': async (req, res) => {
     const { userId, name } = req.body;
