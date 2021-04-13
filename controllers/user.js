@@ -31,7 +31,7 @@ module.exports = {
             },
           }).then((user) => {
             // console.log('4. 회원가입', user);
-            const { kakaoId, name, id } = user[0].dataValues;
+            const { name, id } = user[0].dataValues;
             res.set('Set-Cookie', [`accessToken=${accessToken}`]);
             // res.cookie('id', userInfo.id, {
             //   domain: 'localhost',
@@ -40,7 +40,7 @@ module.exports = {
             //   httpOnly: true,
             //   secure: true,
             // });
-            res.status(200).json({ kakaoId, name, id });
+            res.status(200).json({ name, id });
           });
       }).catch(e => {
         console.log('에러', e);
