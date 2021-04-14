@@ -64,7 +64,7 @@ module.exports = {
 
   // 입찰에 참여한 물품 조회
   'getBuyerItems': async (req, res) => {
-    const { userId } = req.body;
+    const { userId, offset } = req.body;
     await UserModel.findAll({
       where: {
         id: userId,
@@ -78,7 +78,10 @@ module.exports = {
             attributes: ['UserId', 'ItemId']
           }
         }
-      ]
+      ],
+      limit: 5,
+      offset: Number(offset) || 0,
+      subQuery: false
     })
       .then((result) => {
         if (result.length) {
@@ -97,7 +100,7 @@ module.exports = {
 
   // 경매에 내놓은 물품 조회
   'getSellerItems': async (req, res) => {
-    const { userId } = req.body;
+    const { userId, offset } = req.body;
     await UserModel.findAll({
       where: {
         id: userId,
@@ -111,7 +114,10 @@ module.exports = {
             attributes: ['UserId', 'ItemId']
           }
         }
-      ]
+      ],
+      offset: Number(offset) || 0,
+      limit: 5,
+      subQuery: false
     })
       .then((result) => {
         if (result.length) {
