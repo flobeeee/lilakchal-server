@@ -5,13 +5,13 @@ module.exports = {
     await queryInterface.bulkInsert('Users', [
       {
         kakaoid: '1692445585@kakao.com',
-        name: '기프티콘업자아님',
+        name: '못마땅',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         kakaoid: '1691485170@kakao.com',
-        name: '갤럭시조아',
+        name: '사과따땅',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -23,7 +23,7 @@ module.exports = {
       },
       {
         kakaoid: '1691352301@kakao.com',
-        name: '호가왕자낙찰공주',
+        name: '피땅눈물',
         createdAt: new Date(),
         updatedAt: new Date(),
       },

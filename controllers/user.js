@@ -79,7 +79,7 @@ module.exports = {
           }
         }
       ],
-      limit: 5,
+      limit: 4,
       offset: Number(offset) || 0,
       subQuery: false
     })
@@ -116,7 +116,7 @@ module.exports = {
         }
       ],
       offset: Number(offset) || 0,
-      limit: 5,
+      limit: 4,
       subQuery: false
     })
       .then((result) => {
