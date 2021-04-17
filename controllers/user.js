@@ -64,7 +64,7 @@ module.exports = {
 
   // 입찰에 참여한 물품 조회
   'getBuyerItems': async (req, res) => {
-    const { userId, offset } = req.body;
+    const { userId, offset, city } = req.body;
     await UserModel.findAll({
       where: {
         id: userId,
@@ -79,13 +79,14 @@ module.exports = {
           }
         }
       ],
-      limit: 4,
+      limit: 6,
       offset: Number(offset) || 0,
       subQuery: false
     })
       .then((result) => {
         if (result.length) {
           const items = result[0].dataValues.ItemB.map((item) => {
+            item.dataValues.city = city;
             return item.dataValues;
           });
           res.status(200).json({ items });
@@ -100,7 +101,7 @@ module.exports = {
 
   // 경매에 내놓은 물품 조회
   'getSellerItems': async (req, res) => {
-    const { userId, offset } = req.body;
+    const { userId, offset, city } = req.body;
     await UserModel.findAll({
       where: {
         id: userId,
@@ -116,12 +117,13 @@ module.exports = {
         }
       ],
       offset: Number(offset) || 0,
-      limit: 4,
+      limit: 6,
       subQuery: false
     })
       .then((result) => {
         if (result.length) {
           const items = result[0].dataValues.Item.map((item) => {
+            item.dataValues.city = city;
             return item.dataValues;
           });
           res.status(200).json({ items });
