@@ -11,7 +11,7 @@ module.exports = {
     if (keyword) {
       ItemModel.findAll({
         offset: Number(offset) || 0,
-        limit: 4,
+        limit: 6,
         where: {
           [Op.or]: [{
             title: {
@@ -50,7 +50,7 @@ module.exports = {
       const today = new Date();
       ItemModel.findAll({
         offset: Number(offset) || 0,
-        limit: 4,
+        limit: 6,
         where: {
           endTime: {
             [Op.gt]: today,
