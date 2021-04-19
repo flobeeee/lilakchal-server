@@ -1,10 +1,5 @@
-require('dotenv').config();
 const axios = require('axios');
-// const qs = require('qs');
 const { User: UserModel, Item: ItemModel } = require('../models');
-// const clientID = process.env.KAKAO_CLIENT_ID;
-// const clientSecret = process.env.KAKAO_CLIENT_SECRET;
-// const redirectURL = process.env.KAKAO_REDIRECT_URL;
 
 module.exports = {
   // 카카오 오어스 로그인, 강제회원가입
@@ -33,13 +28,6 @@ module.exports = {
             // console.log('4. 회원가입', user);
             const { name, id } = user[0].dataValues;
             res.set('Set-Cookie', [`accessToken=${accessToken}`]);
-            // res.cookie('id', userInfo.id, {
-            //   domain: 'localhost',
-            //   path: '/',
-            //   sameSite: 'none',
-            //   httpOnly: true,
-            //   secure: true,
-            // });
             res.status(200).json({ name, id });
           });
       }).catch(e => {
