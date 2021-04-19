@@ -1,4 +1,3 @@
-const { raw } = require('body-parser');
 const { Item: ItemModel, Seller_item: SellerModel } = require('../models');
 
 module.exports = {
