@@ -5,7 +5,7 @@ module.exports = {
   // 카카오 오어스 로그인, 강제회원가입
   'oauth': async (req, res) => {
     const accessToken = req.body.access_token;
-    console.log('2. 토큰받음', req.body.access_token);
+    // console.log('1. 토큰받음', req.body.access_token);
     axios.get('https://kapi.kakao.com/v2/user/me', {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
@@ -13,7 +13,7 @@ module.exports = {
       },
     })
       .then((data) => {
-        // console.log('3. 유저정보받음', data.data);
+        // console.log('2. 유저정보받음', data.data);
         const kakaoid = data.data.id;
         const name = data.data.properties.nickname;
         UserModel
@@ -25,13 +25,12 @@ module.exports = {
               name: name,
             },
           }).then((user) => {
-            // console.log('4. 회원가입', user);
+            // console.log('3. 회원가입', user);
             const { name, id } = user[0].dataValues;
             res.set('Set-Cookie', [`accessToken=${accessToken}`]);
             res.status(200).json({ name, id });
           });
       }).catch(e => {
-        console.log('에러', e);
         res.status(500).json({ 'message': 'Fail to login' });
       });
   },

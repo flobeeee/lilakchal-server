@@ -18,14 +18,6 @@ const logger = winston.createLogger({
       maxFiles: 50,
       zippedArchive: true,
     }),
-    // new winstonDaily({// error 레벨 로그를 저장할 파일 설정
-    //   level: 'info',
-    //   datePattern: 'YYYY-MM-DD',
-    //   dirname: logDir + '/info',  // error.log 파일은 /logs/error 하위에 저장 
-    //   filename: '%DATE%.info.log',
-    //   maxFiles: 50,
-    //   zippedArchive: true,
-    // }),
   ],
 });
 

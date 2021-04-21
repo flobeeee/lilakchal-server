@@ -1,6 +1,7 @@
 const { Item: ItemModel, Seller_item: SellerModel } = require('../models');
 
 module.exports = {
+  // 경매 물품 등록
   'register': async (req, res) => {
     const { userId, title, price, endTime, description, city } = req.body;
     ItemModel.create({
