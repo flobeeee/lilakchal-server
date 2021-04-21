@@ -34,6 +34,7 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+// 모델 관계 설정
 const { User, Item, Buyer_item, Seller_item, Chat } = sequelize.models;
 
 Chat.belongsTo(User);
@@ -44,11 +45,9 @@ Item.hasMany(Chat);
 
 User.belongsToMany(Item, { through: 'Seller_item', foreignKey: 'UserId', as: 'Item' });
 User.belongsToMany(Item, { through: 'Buyer_item', foreignKey: 'UserId', as: 'ItemB' });
-// User.belongsToMany(Item, { through: 'Chat', foreignKey: 'UserId', as: 'ItemC' });
 
 Item.belongsToMany(User, { through: 'Seller_item', foreignKey: 'ItemId', as: 'User' });
 Item.belongsToMany(User, { through: 'Buyer_item', foreignKey: 'ItemId', as: 'UserB' });
-// Item.belongsToMany(User, { through: 'Chat', foreignKey: 'ItemId', as: 'UserC' });
 
 Buyer_item.belongsTo(User, {
   foreignKey: 'UserId',
@@ -70,14 +69,5 @@ Seller_item.belongsTo(Item, {
   as: 'Item'
 });
 
-// Chat.belongsTo(User, {
-//   foreignKey: 'UserId',
-//   as: 'UserC'
-// });
-
-// Chat.belongsTo(Item, {
-//   foreignKey: 'ItemId',
-//   as: 'ItemC'
-// });
 
 module.exports = db;

@@ -7,7 +7,7 @@ module.exports = {
     // console.log(req.query); // {keyword: '맥북, city: '서울시 마포구', offset: 1}
     const { keyword, city, offset } = req.query;
     const today = new Date();
-    // 검색어로 아이템 이름 검색
+    // 검색어로 아이템 검색
     if (keyword) {
       ItemModel.findAll({
         offset: Number(offset) || 0,
@@ -45,7 +45,7 @@ module.exports = {
           res.status(500).json({ 'message': 'Fail to load data from database' });
         });
     }
-    // 랜딩페이지에서 다음 페이지로 이동하는 순간 지역에 대한 정보가 들어 올 예정
+    // 랜딩페이지에서 서치 페이지로 이동하는 순간 지역 정보 받음 (전체 물품 보여줌)
     else {
       const today = new Date();
       ItemModel.findAll({
