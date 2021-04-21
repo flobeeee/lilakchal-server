@@ -21,10 +21,10 @@ const logger = winston.createLogger({
   ],
 });
 
-const stream = {
+logger.stream = {
   write: message => {
     logger.info(message);
   }
 };
 
-module.exports = { logger, stream };
+module.exports = logger;

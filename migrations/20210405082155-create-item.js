@@ -26,11 +26,22 @@ module.exports = {
       winnerId: {
         type: Sequelize.INTEGER
       },
+      sellerId: {
+        type: Sequelize.INTEGER
+      },
       isClosed: {
         type: Sequelize.BOOLEAN
       },
       city: {
         type: Sequelize.STRING
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
       }
     });
   },

@@ -7,8 +7,20 @@ module.exports = {
 
     await queryInterface.bulkInsert('Buyer_items', [
       {
+        userId: users[0][0].id,
+        itemId: items[0][3].id,
+      },
+      {
         userId: users[0][1].id,
         itemId: items[0][0].id,
+      },
+      {
+        userId: users[0][2].id,
+        itemId: items[0][1].id,
+      },
+      {
+        userId: users[0][3].id,
+        itemId: items[0][2].id,
       },
     ]);
   },

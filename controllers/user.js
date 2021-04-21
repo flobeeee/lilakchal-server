@@ -1,66 +1,39 @@
-require('dotenv').config();
 const axios = require('axios');
 const { User: UserModel, Item: ItemModel } = require('../models');
-const clientID = process.env.KAKAO_CLIENT_ID;
-const clientSecret = process.env.KAKAO_CLIENT_SECRET;
-const redirectURL = process.env.KAKAO_REDIRECT_URL;
 
 module.exports = {
   // 카카오 오어스 로그인, 강제회원가입
   'oauth': async (req, res) => {
-    const { authorizationCode } = req.body;
-
-    axios({
-      method: 'post',
-      url: 'https://kauth.kakao.com/oauth/token',
+    const accessToken = req.body.access_token;
+    // console.log('1. 토큰받음', req.body.access_token);
+    axios.get('https://kapi.kakao.com/v2/user/me', {
       headers: {
+        'Authorization': `Bearer ${accessToken}`,
         'content-type': 'application/x-www-form-urlencoded',
       },
-      data: {
-        grant_type: 'authorization_code',
-        client_id: clientID,
-        redirect_uri: redirectURL,
-        code: authorizationCode,
-        client_secret: clientSecret,
-      }
-    }).then((response) => {
-      const accessToken = response.data.access_token;
-      axios.get('https://kapi.kakao.com/v2/user/me', {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'content-type': 'application/x-www-form-urlencoded',
-        },
-      })
-        .then((data) => {
-          const kakaoid = data.id;
-          const name = data.kakao_account.profile.nickname;
-          UserModel
-            .findOrCreate({
-              where: {
-                kakaoid: `${kakaoid}@kakao.com`,
-              },
-              defaults: {
-                name: name,
-              },
-            });
-        })
-        .then((user) => {
-          const { kakaoId, name, id } = user[0].dataValues;
-          res.set('Set-Cookie', [`accessToken=${accessToken}`]);
-          // res.cookie('id', userInfo.id, {
-          //   domain: 'localhost',
-          //   path: '/',
-          //   sameSite: 'none',
-          //   httpOnly: true,
-          //   secure: true,
-          // });
-          res.status(200).json({ kakaoId, name, id });
-        });
-    }).catch(e => {
-      res.status(500).json({ 'message': 'Fail to login' });
-    });
+    })
+      .then((data) => {
+        // console.log('2. 유저정보받음', data.data);
+        const kakaoid = data.data.id;
+        const name = data.data.properties.nickname;
+        UserModel
+          .findOrCreate({
+            where: {
+              kakaoid: `${kakaoid}@kakao.com`,
+            },
+            defaults: {
+              name: name,
+            },
+          }).then((user) => {
+            // console.log('3. 회원가입', user);
+            const { name, id } = user[0].dataValues;
+            res.set('Set-Cookie', [`accessToken=${accessToken}`]);
+            res.status(200).json({ name, id });
+          });
+      }).catch(e => {
+        res.status(500).json({ 'message': 'Fail to login' });
+      });
   },
-
   // 닉네임 변경
   'name': async (req, res) => {
     const { userId, name } = req.body;
@@ -78,7 +51,7 @@ module.exports = {
 
   // 입찰에 참여한 물품 조회
   'getBuyerItems': async (req, res) => {
-    const { userId } = req.body;
+    const { userId, offset, city } = req.body;
     await UserModel.findAll({
       where: {
         id: userId,
@@ -92,11 +65,15 @@ module.exports = {
             attributes: ['UserId', 'ItemId']
           }
         }
-      ]
+      ],
+      limit: 6,
+      offset: Number(offset) || 0,
+      subQuery: false
     })
       .then((result) => {
         if (result.length) {
           const items = result[0].dataValues.ItemB.map((item) => {
+            item.dataValues.city = city;
             return item.dataValues;
           });
           res.status(200).json({ items });
@@ -111,8 +88,7 @@ module.exports = {
 
   // 경매에 내놓은 물품 조회
   'getSellerItems': async (req, res) => {
-    const { userId } = req.body;
-    console.log(req.body);
+    const { userId, offset, city } = req.body;
     await UserModel.findAll({
       where: {
         id: userId,
@@ -126,11 +102,15 @@ module.exports = {
             attributes: ['UserId', 'ItemId']
           }
         }
-      ]
+      ],
+      offset: Number(offset) || 0,
+      limit: 6,
+      subQuery: false
     })
       .then((result) => {
         if (result.length) {
           const items = result[0].dataValues.Item.map((item) => {
+            item.dataValues.city = city;
             return item.dataValues;
           });
           res.status(200).json({ items });

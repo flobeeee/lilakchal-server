@@ -9,9 +9,9 @@ const auctionRouter = require('./routes/auction');
 const app = express();
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(logger('combine', winston.stream));//더 자세한 로그(user-agent, remote-addr, remote-user, version 등)
+  app.use(logger('combine', {stream: winston.stream}));//더 자세한 로그(user-agent, remote-addr, remote-user, version 등)
 } else {
-  app.use(logger('dev', winston.stream));
+  app.use(logger('dev', {stream: winston.stream}));
 }
 
 app.use(express.json());
