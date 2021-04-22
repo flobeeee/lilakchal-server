@@ -31,7 +31,7 @@
 
 ## Front
 - TypeScript
-- SASS
+- SASS(SCSS)
 - Styled-Component
 - React
 - React Hooks
@@ -46,7 +46,7 @@
 - Multer
 - MySQL
 - Sequelize
-- AWS(EC2, RDS, S3, Route53, CloudFront)
+- AWS(EC2, ELB, RDS, S3, Route53, CloudFront)
 - Docker
 
 # 🛠 Architecture
