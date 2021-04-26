@@ -131,7 +131,7 @@
 <summary>임혜림의 Worklog 📘</summary>
 <div markdown="1">
   
-  [ BE ]
+[ BE ]
 - 서버 라우팅 설정
   - 서버 mvc 구조 세팅
 
@@ -146,7 +146,7 @@
 - 에러로그 파일 기록
   - morgan, winston을 이용한 에러로그 기록
  
-  [ FE ]
+[ FE ]
 - 서치페이지
   - 데스크탑 및 모바일 반응형 UI 구현
   - 실시간 입찰 및 가격 업데이트 구현
