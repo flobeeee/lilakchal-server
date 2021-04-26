@@ -146,7 +146,7 @@
 - 에러로그 파일 기록
   - morgan, winston을 이용한 에러로그 기록
  
-   [ FE ]
+  [ FE ]
 - 서치페이지
   - 데스크탑 및 모바일 반응형 UI 구현
   - 실시간 입찰 및 가격 업데이트 구현
@@ -167,7 +167,7 @@
  - Client 리덕스 세팅
   - ducks 패턴 구현
 
-   [ Deploy ]
+  [ Deploy ]
 - AWS EC2, ELB를 이용한 https 서버 배포
 - AWS S3, CloudFront를 이용한 https 클라이언트 배포
 - Docker를 이용한 서버 개발/자동빌드환경 구축
