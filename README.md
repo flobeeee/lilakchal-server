@@ -47,14 +47,13 @@
 <details>
 <summary>이은정의 Worklog 📘</summary>
   [ BE ]
-
+  
 1. MySQL DB구축
 2. 라우팅 구현(유저정보, 검색 등)
 3. sequelize로 DB와 node 연결
 4. 카카오 API 로 소셜로그인 구현
 
 [ FE ]
-
 1. 무한스크롤 구현
 2. 페이지간 이동시 로딩화면 로직 구현
 3. 채팅페이지 반응형 구현
