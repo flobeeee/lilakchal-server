@@ -1,6 +1,5 @@
 const http = require('http');
 const SocketIO = require('socket.io');
-const fs = require('fs');
 const app = require('./app.js');
 const server = http.createServer(app);
 const io = SocketIO(server);
@@ -8,7 +7,7 @@ const { Item: ItemModel, Buyer_item: BuyerItemModel, Chat: ChatModel } = require
 
 //가격을 Update한다.
 const updateItemPrice = async (userId, itemId, price) => {
-  await ItemModel.update({winnerId: userId, price: price}, {
+  await ItemModel.update({ winnerId: userId, price: price }, {
     where: {
       id: itemId
     }
@@ -17,9 +16,9 @@ const updateItemPrice = async (userId, itemId, price) => {
 
 //입찰정보를 넣는다.
 const insertJoinBidData = async (userId, itemId) => {
-  return await BuyerItemModel.findOrCreate({ 
-    where: {userId, itemId},
-    defaults: { 
+  return await BuyerItemModel.findOrCreate({
+    where: { userId, itemId },
+    defaults: {
       UserId: userId,
       ItemId: itemId
     }
@@ -29,7 +28,7 @@ const insertJoinBidData = async (userId, itemId) => {
 //채팅을 가져온다.
 const getChatMessages = async (roomId) => {
   const messages = await ChatModel.findAll({
-    where: {ItemId: roomId}
+    where: { ItemId: roomId }
   });
 
   return messages.map((message) => ({
@@ -48,10 +47,11 @@ const createChatMessage = async (userId, itemId, text) => {
   });
 };
 
+const bucket = {};
 const auction = io.of('/auction');
 auction.on('connection', (socket) => {
-  socket.on('bid', ({userId, itemId, price}) => {
-    if(bucket[itemId] && bucket[itemId] >= price) {
+  socket.on('bid', ({ userId, itemId, price }) => {
+    if (bucket[itemId] && bucket[itemId] >= price) {
       socket.emit('refuse', 'fail to bid');
     } else {
       updateItemPrice(userId, itemId, price)
@@ -68,7 +68,7 @@ auction.on('connection', (socket) => {
 
 const chat = io.of('/chat');
 chat.on('connection', (socket) => {
-  socket.on('join', ({userId, itemId: roomId}) => {
+  socket.on('join', ({ userId, itemId: roomId }) => {
     getChatMessages(roomId)
       .then((data) => {
         socket.join(roomId);
@@ -76,7 +76,7 @@ chat.on('connection', (socket) => {
       });
   });
 
-  socket.on('message', ({userId, itemId: room, text}) => {
+  socket.on('message', ({ userId, itemId: room, text }) => {
     createChatMessage(userId, room, text)
       .then((data) => {
         socket.broadcast.to(room).emit('message', {
@@ -84,7 +84,7 @@ chat.on('connection', (socket) => {
           createdAt: data.createdAt,
           itemId: data.itemId,
           text: data.message
-        }); 
+        });
       });
   });
 });
