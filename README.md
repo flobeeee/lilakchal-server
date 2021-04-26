@@ -21,6 +21,35 @@
 |임혜림|🏆 Fullstack|
 |이은정|🎖 Backend|
 
+
+<details>
+<summary>백광호의 Worklog 📘</summary>
+<div markdown="1">
+
+</div>
+</details>
+
+<details>
+<summary>김유상의 Worklog 📘</summary>
+<div markdown="1">
+
+</div>
+</details>
+
+<details>
+<summary>임혜림의 Worklog 📘</summary>
+<div markdown="1">
+
+</div>
+</details>
+
+<details>
+<summary>이은정의 Worklog 📘</summary>
+<div markdown="1">
+
+</div>
+</details>
+
 # 💾 Tech Stack
 
 ## Common
@@ -60,4 +89,91 @@
 
 # Project Detail
 
+### App View
+
+<details>
+<summary>Landing Page</summary>
+<div markdown="1">
+<img src="https://user-images.githubusercontent.com/72400381/116030297-3803a400-a696-11eb-9e25-cfcf6f7c1a9a.gif" width="720px">
+</div>
+</details>
+
+<details>
+<summary>Loading</summary>
+<div markdown="1">
+<img src="https://user-images.githubusercontent.com/72400381/116031277-4d79cd80-a698-11eb-8de4-330df58773d4.gif" width="720px">
+</div>
+</details>
+
+<details>
+<summary>Infinite Scroll</summary>
+<div markdown="1">    
+<img src="https://user-images.githubusercontent.com/72400381/116030661-09d29400-a697-11eb-9fba-b5d34bcfcfca.gif" width="720px">
+</div>
+</details>
+
+<details>
+<summary>Search</summary>
+<div markdown="1">    
+<img src="https://user-images.githubusercontent.com/72400381/116030722-2ff83400-a697-11eb-91e5-4fce501aa989.gif" width="720px">
+</div>
+</details>
+
+<details>
+<summary>Login</summary>
+<div markdown="1">    
+<img src="https://user-images.githubusercontent.com/72400381/116030168-ee1abe00-a695-11eb-9ede-efdf752f005f.gif" width="720px">
+</div>
+</details>
+
+<details>
+<summary>Bid Item</summary>
+<div markdown="1">    
+<img src="https://user-images.githubusercontent.com/72400381/116030797-58802e00-a697-11eb-9d6a-e39012bd1452.gif" width="720px">
+</div>
+</details>
+
+<details>
+<summary>Register Item</summary>
+<div markdown="1">    
+<img src="https://user-images.githubusercontent.com/72400381/116030834-6d5cc180-a697-11eb-9461-9bdcc2970b2e.gif" width="720px">
+</div>
+</details>
+
+<details>
+<summary>My Page</summary>
+<div markdown="1">    
+<img src="https://user-images.githubusercontent.com/72400381/116030908-9aa96f80-a697-11eb-809c-6a0fa700106a.gif" width="720px">
+</div>
+</details>
+
+<details>
+<summary>Name Change</summary>
+<div markdown="1">    
+<img src="https://user-images.githubusercontent.com/72400381/116031237-363ae000-a698-11eb-935f-39bbba5a5fbb.gif" width="720px">
+</div>
+</details>
+
+<details>
+<summary>Chat</summary>
+<div markdown="1">    
+<img src="https://user-images.githubusercontent.com/72400381/116030975-bf9de280-a697-11eb-9c0a-b47586e8261a.gif" width="720px">
+</div>
+</details>
+
+<details>
+<summary>Responsive Page</summary>
+<div markdown="1">    
+<img src="https://user-images.githubusercontent.com/72400381/116031057-e2c89200-a697-11eb-8162-61365afbb082.gif" width="720px">
+</div>
+</details>
+
+<details>
+<summary>Mobile</summary>
+<div markdown="1">    
+<img src="https://user-images.githubusercontent.com/72400381/116031177-17d4e480-a698-11eb-99b8-2f3444eb8d6a.gif" width="720px">
+</div>
+</details>
+
+### WIKI
 ### [👨🏻‍⚖️TTMK Wiki](https://github.com/codestates/lilakchal-server/wiki)
