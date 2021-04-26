@@ -157,17 +157,17 @@
 - 로딩 모달 구현
   - Lottie 파일 사용
  
- - 헤더
+- 헤더
   - 모바일 메뉴 작성
   - 모바일 서치바 고정
  
- - 위치정보 수집 및 주소변환
+- 위치정보 수집 및 주소변환
   - KaKao 주소 변환 API 사용
 
- - Client 리덕스 세팅
+- Client 리덕스 세팅
   - ducks 패턴 구현
 
-  [ Deploy ]
+[ Deploy ]
 - AWS EC2, ELB를 이용한 https 서버 배포
 - AWS S3, CloudFront를 이용한 https 클라이언트 배포
 - Docker를 이용한 서버 개발/자동빌드환경 구축
