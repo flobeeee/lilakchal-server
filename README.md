@@ -4,6 +4,8 @@
 
 ### [땅땅마켓](https://www.ttangttang.ml)
 
+### [Client Repository](https://github.com/codestates/lilakchal-client)
+
 우리동네 경매장 땅땅마켓에서  
 여러분들의 중고 물품을 등록해 경매 주최자가 되어보세요!  
 등록된 물품을 입찰하고 실시간 채팅을 통해 거래할수 있습니다  
@@ -26,6 +28,43 @@
 <details>
 <summary>백광호의 Worklog 📘</summary>
 <div markdown="1">
+
+- github 셋팅
+  - 이슈 템플릿 추가
+  - 라벨 추가
+  - 프로젝트 칸반보드 생성
+  - 팀 메니지먼트
+    - Issues, Pull requests, Upstream, Branch, Marge 관리
+  - Readme.MD, Wiki 작성
+
+- Client 프로젝트 셋팅
+  - 프레임워크, 라이브러리 세팅
+
+- 등록페이지 구현
+  - 사진 파일 등록
+  - 유효성검사
+  - 레이아웃 구성
+  - 디자인 구성
+
+- 닉네임변경 모달
+  - PATCH 요청
+  - 레이아웃 구성
+  - 디자인 구성
+
+- 상세아이템 모달
+  - 레이아웃 구성
+  - 디자인 구성
+
+- 경매버튼 컴포넌트 구현
+  - 유효성 검사 추가
+
+- footer 컴포넌트 구현
+  - 레이아웃 구성
+  - 디자인 구성
+
+- 반응형 페이지 구현
+  - footer 컴포넌트 반응형 구현
+  - 등록 페이지 반응형 구현
 
 </div>
 </details>
