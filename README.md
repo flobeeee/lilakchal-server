@@ -21,6 +21,7 @@
 |임혜림|🏆 Fullstack|
 |이은정|🎖 Backend|
 
+### Worklog
 
 <details>
 <summary>백광호의 Worklog 📘</summary>
