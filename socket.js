@@ -1,7 +1,15 @@
-const http = require('http');
+const https = require('https');
 const SocketIO = require('socket.io');
+const fs = require('fs');
 const app = require('./app.js');
-const server = http.createServer(app);
+const server = https
+  .createServer(
+    {
+      key: fs.readFileSync('./key.pem', 'utf-8'),
+      cert: fs.readFileSync('./cert.pem', 'utf-8'),
+    }
+    , app
+  );
 const io = SocketIO(server);
 const { Item: ItemModel, Buyer_item: BuyerItemModel, Chat: ChatModel } = require('./models');
 
